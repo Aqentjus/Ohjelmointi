@@ -1,0 +1,1 @@
+print("Justus opiskelee Metropoliassa")
