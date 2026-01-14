@@ -1,7 +1,3 @@
-
-
-
-
 while True:
     tuuma = int(input("Antaisitko pituuden tuumissa: "))
     if tuuma < 0:
