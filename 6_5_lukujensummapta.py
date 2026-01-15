@@ -7,4 +7,14 @@ Kirjoita testausta varten pääohjelma, jossa luot listan, kutsut funktiota ja t
 
 
 def luvuista_parilliset(luvut):
-    pass
+    parilliset = []
+    for luku in luvut:
+        if luku % 2 == 0:
+            parilliset.append(luku)
+    
+    return parilliset
+
+
+
+testaus_luvut = [90, 3, 18, 19, 23, 39]
+print(luvuista_parilliset(testaus_luvut))
