@@ -21,3 +21,4 @@ if yks1 < yks2:
     print("Pizza 1 antaa paremman vastineen rahalle.")
 elif yks2 < yks1:
     print("Pizza 2 antaa paremman vastineen rahalle.")
+    
