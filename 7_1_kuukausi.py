@@ -15,3 +15,7 @@ vuodenajat = {
     "marraskuu": "talvi",
     "joulukuu": "talvi"
 }
+
+kuukausi = input("Antaisitko kuukauden: ")
+
+print(vuodenajat[kuukausi])
