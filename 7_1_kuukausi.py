@@ -1,21 +1,22 @@
-vuodenajat = {
-    "tammikuu": "kevät",
-    "helmikuu": "kevät",
-    "maaliskuu": "kevät",
+# Vuodenajat monikkona, indeksit 0–11 vastaavat kuukausia 1–12
+vuodenajat = (
+    "talvi",  # tammikuu
+    "talvi",  # helmikuu
+    "kevät",  # maaliskuu
+    "kevät",  # huhtikuu
+    "kevät",  # toukokuu
+    "kesä",   # kesäkuu
+    "kesä",   # heinäkuu
+    "kesä",   # elokuu
+    "syksy",  # syyskuu
+    "syksy",  # lokakuu
+    "syksy",  # marraskuu
+    "talvi"   # joulukuu
+)
 
-    "huhtikuu": "kesä",
-    "toukokuu": "kesä",
-    "kesäkuu": "kesä",
+kuukausi = int(input("Anna kuukauden numero (1–12): "))
 
-    "heinäkuu": "syksy",
-    "elokuu": "syksy",
-    "syyskuu": "syksy",
-
-    "lokakuu": "talvi",
-    "marraskuu": "talvi",
-    "joulukuu": "talvi"
-}
-
-kuukausi = input("Antaisitko kuukauden: ")
-
-print(vuodenajat[kuukausi])
+if 1 <= kuukausi <= 12:
+    print("Vuodenaika on", vuodenajat[kuukausi - 1])
+else:
+    print("Virheellinen kuukauden numero")
