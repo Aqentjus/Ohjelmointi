@@ -29,5 +29,3 @@ syote = str(input("Antaisitko lentokentän koodin?: "))
 print(f'Haetun lentokentän koko nimi on: {hae_tietokannasta(syote)}')
 
 
-for row in tulos:
-    airport_type = row[0]
