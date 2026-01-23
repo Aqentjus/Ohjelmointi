@@ -8,6 +8,9 @@ Jos käyttäjä haluaa lopettaa, ohjelman suoritus päättyy. Käyttäjä saa va
 Esimerkiksi Helsinki-Vantaan lentoaseman ICAO-koodi on EFHK. Löydät koodeja helposti selaimen avulla.)
 '''
 
+
+
+#aloitetaan 
 lentokenttia = {}
 
 def uusi_asema():
