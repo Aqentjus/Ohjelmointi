@@ -1,21 +1,17 @@
-from flask import Flask, request
-import time
+import random
 
-app = Flask(__name__)
+maara = int(input("Antaisitko arpakuutioiden lukumäärän?: "))
 
-@app.route('/', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
-@app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
-def catch_all(path):
-    print(f"Path: {path}")
-    print(f"Headers: {dict(request.headers)}")
-    print(f"Params: {request.args}")
-    print(f"Data: {request.data}")
+yhteensa = 0
 
-    # Wait for 5 seconds
-    time.sleep(5)
+luvut = []
 
-    return "yessir"
+for j in range(0, maara):
+    luvut.append(random.randint(1,6))
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+
+for luku in luvut:
+    yhteensa += luku
+    
+print(yhteensa)
 
