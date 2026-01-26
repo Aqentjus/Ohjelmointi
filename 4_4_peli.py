@@ -1,17 +1,14 @@
-nimet = set()
+import random
+
+luku = random.randint(1,10)
 
 while True:
-    nimi = input("Anna nimi (tyhjä lopettaa): ")
+    arvaus = int(input("Antaisitko arvauksesi: "))
 
-    if nimi == "":
+    if arvaus == luku:
+        print("Oikein")
         break
-
-    if nimi in nimet:
-        print("Aiemmin syötetty nimi")
-    else:
-        print("Uusi nimi")
-        nimet.add(nimi)
-
-print("\nSyötetyt nimet:")
-for n in nimet:
-    print(n)
+    elif arvaus < luku:
+        print("Liian pieni arvaus")
+    elif arvaus > luku:
+        print("Liian suuri arvaus")

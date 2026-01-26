@@ -37,7 +37,7 @@ def tietty_kentta_kentan_tiedoista(syote, kentta):
 print(tietty_kentta_kentan_tiedoista(syote="EFHK", kentta='latitude_deg'))
 '''
 
-'''
+
 #laskee kahden lentoaseman välimatkan kilometreissä
 
 def calculate_distance(airport1_code, airport2_code):
@@ -61,7 +61,9 @@ def calculate_distance(airport1_code, airport2_code):
 
 print(calculate_distance(airport1_code="EFHK", airport2_code="EFHK"))
 
-'''
+
+
+
 
 
 
