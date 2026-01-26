@@ -1,8 +1,8 @@
-pi = 3.14159
+import math
 
 def pizza_yksikkohinta(halkaisija_cm, hinta_euro):
     sade = halkaisija_cm / 2
-    pinta_ala_cm2 = pi * sade ** 2
+    pinta_ala_cm2 = math.pi * sade ** 2
     pinta_ala_m2 = pinta_ala_cm2 / 10000
     yksikkohinta = hinta_euro / pinta_ala_m2
     return yksikkohinta
