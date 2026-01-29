@@ -1,9 +1,3 @@
-x = "Miikka"
+print("Justus")
 
-def testi():
-  global x
-  x = "Justus"
-
-myfunc()
-
-print(x)
+pass
