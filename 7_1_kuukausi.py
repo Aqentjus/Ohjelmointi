@@ -1,4 +1,3 @@
-# Vuodenajat monikkona, indeksit 0–11 vastaavat kuukausia 1–12
 vuodenajat = (
     "talvi",  # tammikuu
     "talvi",  # helmikuu
