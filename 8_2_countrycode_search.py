@@ -31,7 +31,7 @@ tulos = hae_tietokannasta(syote)
 
 
 for row in tulos:
-    airport_type = row[0]   # <-- get string from tuple
+    airport_type = row[0]
 
     if airport_type == "closed":
         closed += 1
