@@ -11,7 +11,6 @@ paikkakunta = str(input("Antaisitko paikkakunnan?> "))
 
 request = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={paikkakunta}&appid=35fb99549cdf67fc4921324c0664a776&units=metric").json()
 
-print(request['weather']['description'])
-print(request['main']['temp'])
+print(f"{paikkakunta} Lämpötila on {request['main']['temp']}")
+print(f"{paikkakunta} sääteksti: {request['weather'][0]['description']}")
 
-#830232590afe8b6476d6c3c220c0c944
