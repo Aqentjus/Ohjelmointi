@@ -1,13 +1,10 @@
-lista = [1, 2, 3, 4, 5]
+class ihminen:
+    def __init__(self, nimi, ikä):
+        self.nimi = nimi
+        self.ikä = ikä
 
-print(lista)
+    def tervehdi(self):
+        print(f"Moi olen {self.nimi}")
 
-lista.append(8)
-
-print(lista)
-
-
-
-
-for numero in lista:
-    print(numero)
+ihminen1 = ihminen("Pekka", 53)
+ihminen1.tervehdi()
