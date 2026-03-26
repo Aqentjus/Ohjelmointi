@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>The squareroot is</h3>
+    <p id="result"></p>
+    <script>
+        alert("Should I calculate the square root?");
+        let number = prompt("Please provide a number to calculate the squareroot of");
+        let result = Math.sqrt(number);
+        document.getElementById("result").textContent = result;
+    </script>
+</body>
+</html>

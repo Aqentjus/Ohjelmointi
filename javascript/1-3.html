@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>sum</h3>
+    <p id="sum"></p>
+    <h3>product</h3>
+    <p id="product"></p>
+    <h3>average</h3>
+    <p id="average"></p>
+    <script>
+        const number1 = parseInt(prompt("please give the first number"))
+        const number2 = parseInt(prompt("please give the second number"))
+        const number3 = parseInt(prompt("please give the third number"))
+        sum = number1 + number2 + number3
+        product = number1 * number2 * number3
+        average = sum / 3
+        document.querySelector('#sum').innerHTML = sum;
+        document.querySelector('#product').innerHTML = product;
+        document.querySelector('#average').innerHTML = average;
+    </script>
+</body>
+</html>

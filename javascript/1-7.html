@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Hat says</h3>
+    <p id="result"></p>
+
+    <script>
+        const max = parseInt(prompt("What is the max number youre dice can give?"))
+        const times = parseInt(prompt("How many times should the dice be rolled?"))
+        const min = parseInt(1)
+        let sum = 0;
+        sum = parseInt(sum)
+
+        for (let i = 0; i <= times ; i += 1) {
+            let random = parseInt(Math.random() * (max - min) + min)
+            sum = sum + random
+        }
+
+        document.getElementById("result").textContent = sum;
+
+    </script>
+</body>
+</html>

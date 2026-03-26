@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Hat says</h3>
+    <p id="result"></p>
+
+    <script>
+        const name = prompt("Please give me youre name")
+        const max = parseInt(4)
+        const min = parseInt(1)
+        const random = parseInt(Math.random() * (max - min) + min)
+        if (random == 1){
+            document.querySelector('#result').innerHTML = name + ", you are Ravenclaw.";
+        }
+        else if (random == 2){
+            document.querySelector('#result').innerHTML = name + ", you are Slytherin.";
+        }
+        else if (random == 3){
+            document.querySelector('#result').innerHTML = name + ", you are Hufflepuff.";
+        }
+        else if (random == 4){
+            document.querySelector('#result').innerHTML = name + ", you are Ravenclaw.";
+        }
+
+    </script>
+</body>
+</html>
