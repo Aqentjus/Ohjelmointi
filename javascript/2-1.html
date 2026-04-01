@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task 2-1</title>
+  </head>
+  <body>
+    <h3>Numbers sorted in reversed order</h3>
+    <p id="result"></p>
+    <script>
+      const numbers = [];
+      for (let i = 0; i < 5; i++) {
+        numbers[i] = parseInt(prompt("Please provide a number:"))
+      }
+      numbers.reverse()
+      document.getElementById("result").textContent = numbers;
+
+    </script>
+  </body>
+</html>

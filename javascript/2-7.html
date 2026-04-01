@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task 2-7</title>
+  </head>
+  <body>
+    <h3>We got the max number possible wuhuu!!!:</h3>
+    <p id="result"></p>
+
+    <script>
+      function random_dice_roll(max) {
+        let min = 1;
+        let random = Math.floor(Math.random() * (max - min + 1)) + min;
+        return random;
+      }
+
+      let max = parseInt(prompt("Please type the max number the dice can roll"));
+
+      let rolled_number;
+
+      while (true) {
+        rolled_number = random_dice_roll(max);
+
+        if (rolled_number === max) {
+          break;
+        }
+      }
+
+      document.getElementById("result").textContent = rolled_number;
+    </script>
+  </body>
+</html>

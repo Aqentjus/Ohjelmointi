@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task 2-6</title>
+  </head>
+  <body>
+    <h3>Random rumber from function was:</h3>
+    <p id="result"></p>
+    <script>
+    function random_dice_roll() {
+      let min = 1;
+      let max = 6;
+      let random = parseInt(Math.random() * (max - min) + min);
+      return random;
+    };
+
+    document.getElementById("result").textContent = random_dice_roll();
+
+    </script>
+  </body>
+</html>

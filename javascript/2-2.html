@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <title>Participants List</title>
+  </head>
+  <body>
+
+    <h2>Participants in the meting</h2>
+    <ol id="nameList"></ol>
+
+<script>
+    const count = parseInt(prompt("Enter number of participants:"));
+
+    let names = [];
+
+    for (let i = 0; i < count; i++) {
+        let name = prompt("Enter name of participant " + (i + 1) + ":");
+        names.push(name);
+    }
+
+    names.sort();
+
+    const list = document.getElementById("nameList");
+
+    for (let name of names) {
+        let li = document.createElement("li");
+        li.textContent = name;
+        list.appendChild(li);
+    }
+    </script>
+
+  </body>
+</html>
