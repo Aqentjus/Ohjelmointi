@@ -11,10 +11,14 @@
     <script>
       const numbers = [];
       for (let i = 0; i < 5; i++) {
-        numbers[i] = parseInt(prompt("Please provide a number:"))
+        numbers[i] = parseInt(prompt("Please provide a number:"));
       }
-      numbers.reverse()
-      document.getElementById("result").textContent = numbers;
+      const result = [];
+      for (let i = 4; i>=0; i--){
+        result.push(numbers[i]);
+      }
+
+      document.getElementById("result").textContent = result;
 
     </script>
   </body>
