@@ -3,7 +3,7 @@
 
 Justus Venäläinen
 
-Metropolian ammattikorkeen ohjelmisto 1 ohjelmointi tehtävät
+Metropolian ammattikorkeen ohjelmisto 1 + ohjelmisto 2 ohjelmointi tehtävät
 Omat vastaukseni
 
 
