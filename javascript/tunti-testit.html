@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airplane Game Map</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background:
+        radial-gradient(circle at top, #102235 0%, #09131d 45%, #04070b 100%);
+      font-family: Arial, sans-serif;
+      color: #d8f6ff;
+      padding: 24px;
+    }
+
+    #hud {
+      position: relative;
+      width: min(1100px, 95vw);
+      height: min(650px, 85vh);
+      background: linear-gradient(180deg, rgba(7, 16, 24, 0.95), rgba(4, 10, 16, 0.98));
+      border: 2px solid rgba(90, 220, 255, 0.55);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 0 20px rgba(90, 220, 255, 0.18),
+        0 20px 60px rgba(0,0,0,0.45);
+    }
+
+    #topbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      background: linear-gradient(180deg, rgba(5, 14, 22, 0.92), rgba(5, 14, 22, 0.55));
+      border-bottom: 1px solid rgba(90, 220, 255, 0.18);
+      backdrop-filter: blur(6px);
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #baf2ff;
+      text-transform: uppercase;
+    }
+
+    .title span:last-child {
+      opacity: 0.9;
+    }
+
+    .hud-stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .stat {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(16, 32, 44, 0.78);
+      border: 1px solid rgba(90, 220, 255, 0.2);
+      font-size: 13px;
+      color: #d7f7ff;
+      white-space: nowrap;
+    }
+
+    #map-wrap {
+      position: absolute;
+      inset: 64px 0 0 0;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Subtle grid overlay */
+    #map-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 500;
+      background:
+        linear-gradient(rgba(90, 220, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(90, 220, 255, 0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.28;
+    }
+
+    /* Soft vignette */
+    #map-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 501;
+      background: radial-gradient(circle at center,
+        transparent 50%,
+        rgba(0, 0, 0, 0.12) 72%,
+        rgba(0, 0, 0, 0.35) 100%);
+    }
+
+    #radar-ring {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: 22px;
+      bottom: 22px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 502;
+      border: 1px solid rgba(90, 220, 255, 0.16);
+      box-shadow: inset 0 0 40px rgba(90, 220, 255, 0.04);
+      opacity: 0.75;
+    }
+
+    #radar-ring::before,
+    #radar-ring::after {
+      content: "";
+      position: absolute;
+      inset: 16.66%;
+      border-radius: 50%;
+      border: 1px solid rgba(90, 220, 255, 0.14);
+    }
+
+    #radar-ring::after {
+      inset: 33.33%;
+    }
+
+    #sweep {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        conic-gradient(
+          from 0deg,
+          rgba(90, 220, 255, 0.00) 0deg,
+          rgba(90, 220, 255, 0.00) 320deg,
+          rgba(90, 220, 255, 0.20) 350deg,
+          rgba(90, 220, 255, 0.35) 360deg
+        );
+      animation: sweep 5s linear infinite;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes sweep {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .plane-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(90,220,255,0.24) 0%, rgba(90,220,255,0.08) 55%, transparent 70%);
+      color: #9beeff;
+      font-size: 24px;
+      text-shadow:
+        0 0 8px rgba(90,220,255,0.9),
+        0 0 18px rgba(90,220,255,0.4);
+      transform: rotate(45deg);
+    }
+
+    .leaflet-popup-content-wrapper {
+      background: rgba(8, 18, 28, 0.96);
+      color: #d8f6ff;
+      border: 1px solid rgba(90, 220, 255, 0.35);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    .leaflet-popup-tip {
+      background: rgba(8, 18, 28, 0.96);
+    }
+
+    .leaflet-control-zoom a {
+      background: rgba(8, 18, 28, 0.92);
+      color: #d8f6ff;
+      border-bottom: 1px solid rgba(90, 220, 255, 0.15);
+    }
+
+    .leaflet-control-zoom a:hover {
+      background: rgba(16, 32, 44, 0.98);
+      color: #ffffff;
+    }
+
+    .status-badge.ok {
+      color: #9fffcf;
+    }
+
+    .status-badge.warn {
+      color: #ffd98a;
+    }
+
+    @media (max-width: 700px) {
+      #hud {
+        height: 85vh;
+      }
+
+      #topbar {
+        height: auto;
+        min-height: 64px;
+        padding: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      #map-wrap {
+        inset: 92px 0 0 0;
+      }
+
+      .hud-stats {
+        justify-content: flex-start;
+      }
+
+      #radar-ring {
+        width: 180px;
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="hud">
+    <div id="topbar">
+      <div class="title">
+        <span>✈</span>
+        <span>Flight Tracking Console</span>
+      </div>
+
+      <div class="hud-stats">
+        <div class="stat" id="status">Searching position...</div>
+        <div class="stat" id="coords">Lat: -- | Lng: --</div>
+        <div class="stat" id="accuracy">Accuracy: --</div>
+      </div>
+    </div>
+
+    <div id="map-wrap">
+      <div id="map"></div>
+      <div id="radar-ring">
+        <div id="sweep"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <script>
+    const statusEl = document.getElementById("status");
+    const coordsEl = document.getElementById("coords");
+    const accuracyEl = document.getElementById("accuracy");
+
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    };
+
+    function buildMap(lat, lng, accuracy, label) {
+      const map = L.map("map", {
+        zoomControl: true,
+        attributionControl: false
+      }).setView([lat, lng], 9);
+
+      // Dark map, but still readable
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+        subdomains: "abcd",
+        maxZoom: 20
+      }).addTo(map);
+
+      const planeMarker = L.divIcon({
+        className: "",
+        html: '<div class="plane-icon">✈</div>',
+        iconSize: [42, 42],
+        iconAnchor: [21, 21]
+      });
+
+      L.marker([lat, lng], { icon: planeMarker })
+        .addTo(map)
+        .bindPopup(`
+          <strong>${label}</strong><br>
+          Latitude: ${lat.toFixed(4)}<br>
+          Longitude: ${lng.toFixed(4)}<br>
+          Accuracy: ${Math.round(accuracy)} m
+        `)
+        .openPopup();
+
+      L.circle([lat, lng], {
+        radius: accuracy,
+        weight: 1.5,
+        opacity: 0.55,
+        fillOpacity: 0.08
+      }).addTo(map);
+
+      return map;
+    }
+
+    function success(pos) {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      const accuracy = pos.coords.accuracy;
+
+      statusEl.innerHTML = '<span class="status-badge ok">Live GPS lock</span>';
+      coordsEl.textContent = `Lat: ${lat.toFixed(4)} | Lng: ${lng.toFixed(4)}`;
+      accuracyEl.textContent = `Accuracy: ${Math.round(accuracy)} m`;
+
+      buildMap(lat, lng, accuracy, "Aircraft Position");
+    }
+
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+
+      // Helsinki fallback
+      const lat = 60.1699;
+      const lng = 24.9384;
+      const accuracy = 1000;
+
+      statusEl.innerHTML = '<span class="status-badge warn">Fallback mode</span>';
+      coordsEl.textContent = `Lat: ${lat.toFixed(4)} | Lng: ${lng.toFixed(4)}`;
+      accuracyEl.textContent = "Accuracy: simulated";
+
+      buildMap(lat, lng, accuracy, "Fallback Aircraft Position");
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+  </script>
+</body>
+</html>
