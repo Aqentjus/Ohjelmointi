@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <script>
+        async function asynchronousFunction() {
+    try {
+      const response = await fetch('https://api.chucknorris.io/jokes/random');
+      const jsonData = await response.json();
+      console.log(jsonData.value);
+    } catch (error){
+      console.log(error.message);
+    } finally {
+      console.log("communications done");
+    }
+  }
+
+  asynchronousFunction();
+    </script>
+  </body>
+</html>
